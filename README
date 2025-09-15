@@ -1,0 +1,22 @@
+Boa noite,
+
+Primeiramente, antes de tudo, abrir o terminal e inicializar o ambiente virtual e puxar as bibliotecas utilizadas
+---------------------------------
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requiriments.txt
+----------------
+
+Na pasta ./grafo coloquei meu codigo do algoritmo de Dijikastra, no qual importei em views(onde vamos fazer nossos scripts).
+
+Resumidamente, 
+
+Models: Aqui representamos as tabelas do banco de dados.
+
+Views: Aqui onde fica a logica da nossa aplicação.
+
+URLs: Mapeia os endereços (URLs) que o usuário acessa para a view correta que deve ser executada.
+-----
+Para rodar o servidor
+---------
+python manage.py runserver
