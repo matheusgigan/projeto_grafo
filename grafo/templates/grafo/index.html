@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,46 @@
     <title>Projeto Grafo</title>
 </head>
 <body>
-    <h1>Bom dia</h1>
+
+    <h1>Projeto Grafo</h1>
+    <div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="numero_vertices-input">Defina quantas vértices existem no grafo:</label><br>
+            <input type="number" id="numero_vertices" name="numero_vertices" placeholder="Ex: 5" min="1" required><br>
+            <button type="submit" id="btn1">Prosseguir</button>
+        </form>
+    </div>
+    
+    {% if tamanho_vertices %}
+        <div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <label>Insira a letra e a quantidade de arestas de cada vértice:</label><br>
+                {% for i in tamanho_vertices %}
+                    <hr>
+                    <input type="text" name="nome_vertice" pattern="[a-zA-Z]" placeholder="Ex: A (A-Z)" required><br>
+                    <input type="number" name="numero_arestas" placeholder="Número de arestas" min="0" required><br>
+                {% endfor %}
+                
+                <button type="submit" id="btn2">Prosseguir</button>
+
+            </form>
+        </div>      
+    {% endif %}
+
+    {% if nome_vertices %}
+        <div>
+            <p>Marque quais são as ligações das arestas:</p><br>
+            <ul>
+                {% for nome in nome_vertices %}
+                    <li>{{ nome }}</li>
+                {% endfor %}
+            </ul>
+            <button type="submit">Enviar</button>
+        </div>
+    {% endif %}
+
+<!-- <script src="{% static 'js/script.js' %}"></script> -->
 </body>
 </html>

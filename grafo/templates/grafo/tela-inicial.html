@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Tela inicial</title>
+</head>
+<body>
+    <div>
+        <h1>Projeto Grafo</h1>
+        <h2>Membros do Grupo</h1>
+        <ul>
+            <li>Matheus Araujo</li>
+            <li>Andressa</li>
+            <li>Luiz Neto</li>
+        </ul>
+    </div>
+    <a href="{% url 'index' %}">Começar</a>
+</body>
+</html>
