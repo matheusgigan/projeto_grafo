@@ -1,8 +1,8 @@
-from django.urls import path, include
-from grafo.views import index, tela_inicial
+# Em grafo/urls.py
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('', tela_inicial, name='tela_inicial'),
-    path('index/', index, name='index'),
-
+    # A URL principal ('/') tem o nome 'processar_grafo'
+    path('', views.processar_grafo, name='processar_grafo'),
 ]

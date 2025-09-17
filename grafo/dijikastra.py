@@ -20,6 +20,26 @@ def dijikastra (mapa, ponto_partida):
 
     return mapa
 
+
+def reconstruir_caminho(mapa_resultado, ponto_partida, ponto_destino):
+    if mapa_resultado[ponto_destino]['distancia'] == float('inf'):
+        return None, float('inf')
+
+    caminho = []
+    vertice_atual = ponto_destino
+    
+    while vertice_atual is not None:
+        caminho.append(vertice_atual)
+        vertice_atual = mapa_resultado[vertice_atual].get('caminho') 
+
+    caminho_correto = caminho[::-1]
+    
+    if caminho_correto[0] == ponto_partida:
+        distancia_total = mapa_resultado[ponto_destino]['distancia']
+        return caminho_correto, distancia_total
+    else:
+        return None, float('inf') 
+
 # Resumidamente,
 # Você informa uma matriz, utilizando essas informações:
 # vertices = {

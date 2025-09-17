@@ -5,6 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Formulário para Salvar Grafo</title>
+</head>
+<body>
+    <div class="formulario-container">
+
+        <h2>Informe o Grafo</h2>
+
+        <form action="{% url 'processar_grafo' %}" method="post">
+            {% csrf_token %}
+
+            <div class="formularios">
+                <label for="vertices">1. Vértices Definidos</label>
+                <span class="instructions">Digite os nomes dos vértices, separados por vírgula.</span>
+                <input type="text" id="vertices" name="vertices" placeholder="Ex: A, B, C, D" >
+            </div>
+            <br>
+            <div class="formularios">
+                <label for="arestas">2. Arestas (Conexões) e Pesos</label>
+                <span class="instructions">Digite uma aresta por linha, no formato: Origem,Destino,Peso</span>
+                <br>
+                <textarea id="arestas" name="arestas" placeholder="Ex:&#10;A,B,7&#10;A,C,3&#10;C,B,1" ></textarea>
+            </div>
+            <br>
+            <div class="formularios">
+                <label for="ponto_partida">3. Ponto de Partida</label>
+                <input type="text" id="ponto_partida" name="ponto_partida" placeholder="Ex: A" >
+            </div>
+            <br>
+            <div class="formularios">
+                <label for="ponto_destino">4. Ponto de Destino</label>
+                <input type="text" id="ponto_destino" name="ponto_destino" placeholder="Ex: D" >
+            </div>
+            <button type="submit">Salvar Grafo</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>Projeto Grafo</title>
 </head>
 <body>
@@ -39,6 +97,23 @@
     {% if nome_vertices %}
         <div>
             <p>Marque quais são as ligações das arestas:</p><br>
+            
+            {% for nome in nome_vertices %}
+            <input type="checkbox" name="ligacoes" value="{{ nome }}">
+            <label>
+                Aresta de {{ nome }} para {{ nome }}
+            </label>
+            <input type="number" placeholder ='Peso da aresta: ex: 5' min="1" name="peso_arestas"><br>
+        {% endfor %}
+
+            <button type="submit">Enviar</button>
+        </div>
+    {% endif %}
+     -->
+
+    <!-- {% if nome_vertices %}
+        <div>
+            <p>Marque quais são as ligações das arestas:</p><br>
             <ul>
                 {% for nome in nome_vertices %}
                     <li>{{ nome }}</li>
@@ -46,7 +121,7 @@
             </ul>
             <button type="submit">Enviar</button>
         </div>
-    {% endif %}
+    {% endif %} -->
 
 <!-- <script src="{% static 'js/script.js' %}"></script> -->
 </body>

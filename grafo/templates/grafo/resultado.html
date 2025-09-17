@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{ % static 'css/styles.css' % }">
+    <title>Resultado do Menor Caminho</title>
+    <style> /* Adicione seu CSS aqui */ </style>
+</head>
+<body>
+    <h1>Resultado do Cálculo</h1>
+
+    {% if caminho %}
+        <h2>Menor Caminho Encontrado!</h2>
+        <p>
+            O menor caminho de <strong>{{ caminho.0 }}</strong> até <strong>{{ caminho|last }}</strong> é:
+        </p>
+        <h3>
+            {{ caminho|join:" -> " }}
+        </h3>
+        <p>
+            <strong>Distância Total:</strong> {{ distancia }}
+        </p>
+    {% else %}
+        <h2>Nenhum caminho encontrado.</h2>
+        <p>Não foi possível encontrar um caminho entre os pontos selecionados.</p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'processar_grafo' %}">Calcular novamente</a>
+</body>
+</html>
