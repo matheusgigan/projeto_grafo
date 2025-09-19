@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # A URL principal ('/') tem o nome 'processar_grafo'
-    path('', views.processar_grafo, name='processar_grafo'),
+    path('', views.tela_inicial, name='tela_inicial'),
+    path('index/', views.index, name='index'),
+    path('processar_grafo/', views.processar_grafo, name='processar_grafo'),
 ]

@@ -20,3 +20,6 @@ URLs: Mapeia os endereços (URLs) que o usuário acessa para a view correta que 
 Para rodar o servidor
 ---------
 python manage.py runserver
+
+
+-----------------------
