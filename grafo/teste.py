@@ -26,8 +26,6 @@ def criar_grafo_aleatorio(numero_vertices):
             peso = matriz[i][j]
             minhas_vertices[vertice]['arestas'][destino] = peso
 
-    # print(matriz)
-
     return minhas_vertices
 
 
@@ -72,15 +70,3 @@ def reconstruir_caminho(mapa_resultado, ponto_partida, ponto_destino):
         return caminho_correto, distancia_total
     else:
         return None, float('inf') 
-    
-# numero_vertices = int(input("Digite o número de vértices: "))
-# minhas_vertices = criar_grafo_aleatorio(numero_vertices)
-# ponto_partida = input(f"Digite o ponto de partida entre {list(minhas_vertices.keys())}: ")
-# ponto_destino = input(f"Digite o ponto de destino entre {list(minhas_vertices.keys())}: ")
-# resultado = dijkstra(minhas_vertices, ponto_partida)
-# caminho, distancia = reconstruir_caminho(resultado, ponto_partida, ponto_destino)
-
-# if caminho:
-#     print(f"Caminho mais curto de {ponto_partida} para {ponto_destino}: {' -> '.join(caminho)}, Distância: {distancia}")
-# else:
-#     print(f"Não há caminho de {ponto_partida} para {ponto_destino}.")
