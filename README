@@ -26,6 +26,6 @@ python manage.py runserver
 
 #TODO 
 
-1. Refazer o codigo de contruir o caminho.
+1. Refazer o codigo de contruir o caminho. -----OK
 2. Estilizar e deixar o site em si responsivo.(ganhar pontos extras)
 3. Utilizar alguma bilbioteca de desenhar grafo.
