@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <title>Formulário para Salvar Grafo</title>
+    <title>Informe o grafo</title>
 </head>
 <body>
     <div class="formulario-container">
 
         <h2>Informe o Grafo</h2>
-
         <form action="{% url 'processar_grafo' %}" method="post">
             {% csrf_token %}
-            {{form}}
-            <input type="submit" value="Calcular Grafo">
+            {{ form.as_p }}
+            <button type="submit">Criar Matriz</button>
         </form>
     </div>
     <script src="{% static 'js/scripts.js' %}"></script>

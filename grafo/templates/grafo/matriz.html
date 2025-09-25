@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Criar Matriz</title>
 </head>
 <body>
-    <h1>Matriz de Adjacência</h1>
+    <h1>Criar Matriz</h1>
     <p>De <strong>{{ ponto_partida }}</strong> para <strong>{{ ponto_destino }}</strong></p>
-    <p>Edite os pesos das arestas na matriz abaixo:</p>
+    <p>Caso queria, edite os pesos das arestas na matriz abaixo:</p>
     
-    <form action="{% url 'resultado' %}" method="post">
-    {% csrf_token %}
-    <table border="1" style="border-collapse: collapse;">
-        <tr>
-            <th></th>
-            {% for nome in vertices_nomes %}
-                <th>{{ nome }}</th>
-            {% endfor %}
-        </tr>
-        {% for item in matriz_com_nomes %}
+    <form action="{% url 'processar_grafo' %}" method="post">
+        {% csrf_token %}
+
+        <input type="hidden" name="numero_vertices" value="{{ numero_vertices }}">
+        <input type="hidden" name="ponto_partida" value="{{ ponto_partida }}">
+        <input type="hidden" name="ponto_destino" value="{{ ponto_destino }}">
+        
+        <table border="1" style="border-collapse: collapse;">
             <tr>
-                <th>{{ item.nome_linha }}</th>
-                {% for pesos in item.linha %}
-                    <td><input type="number" name="celula_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" value="{{ pesos }}" style="width: 50px;"></td>
+                <th></th>
+                {% for nome in vertices_nomes %}
+                    <th>{{ nome }}</th>
                 {% endfor %}
             </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <button type="submit">Calcular Menor Caminho</button>
-</form>
+            {% for item in matriz_com_nomes %}
+                <tr>
+                    <th>{{ item.nome_linha }}</th>
+                    {% for pesos in item.linha %}
+                        <td><input type="number" name="celula_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" value="{{ pesos }}" style="width: 50px;"></td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <button type="submit">Calcular Menor Caminho</button>
+    </form>
 </body>
 </html>
