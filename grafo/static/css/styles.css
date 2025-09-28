@@ -1,0 +1,6 @@
+/* Continua sendo CRUCIAL definir o tamanho do contêiner */
+        #myNetwork {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ccc;
+        }

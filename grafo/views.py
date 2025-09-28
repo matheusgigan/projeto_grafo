@@ -60,6 +60,8 @@ def processar_grafo(request):
     return render(request, 'grafo/index.html', {'form': form})
 
 def calcular_resultado(request):
+    import json
+    
     numero_vertices = int(request.POST.get('numero_vertices'))
     ponto_partida = request.POST.get('ponto_partida')
     ponto_destino = request.POST.get('ponto_destino')
@@ -87,14 +89,29 @@ def calcular_resultado(request):
                 peso = 0
             minhas_vertices[vertice_origem]['arestas'][vertice_destino] = peso
     
-    # Calcular Dijikastra
-    resultado_dijikastra = dijikastra(minhas_vertices, ponto_partida)
-    caminho, distancia = caminho_ate_o_destino(resultado_dijikastra, ponto_partida, ponto_destino)
+    # Calcular Dijkstra
+    resultado_dijkstra = dijikastra(minhas_vertices, ponto_partida)
+    caminho, distancia = caminho_ate_o_destino(resultado_dijkstra, ponto_partida, ponto_destino)
+    
+    # Preparar dados para o grafo visual
+    vertices_data = {}
+    edges_data = []
+    
+    # Converter dados dos vértices para JSON
+    for vertice, dados in minhas_vertices.items():
+        vertices_data[vertice] = {
+            'arestas': dados['arestas'],
+            'distancia': dados['distancia'] if dados['distancia'] != float('inf') else 999999,
+            'visitado': dados['visitado']
+        }
     
     context = {
         'caminho': caminho,
         'distancia': distancia,
         'ponto_partida': ponto_partida,
-        'ponto_destino': ponto_destino
+        'ponto_destino': ponto_destino,
+        'vertices_data': json.dumps(vertices_data),
+        'caminho_json': json.dumps(caminho) if caminho else json.dumps([]),
+        'edges_data': json.dumps(edges_data),  # Não usado atualmente, mas mantido para compatibilidade
     }
     return render(request, 'grafo/resultado.html', context)

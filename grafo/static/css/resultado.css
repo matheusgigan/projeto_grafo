@@ -1,0 +1,311 @@
+/* Estilos específicos para a página de resultado do Dijkstra */
+
+#myNetwork {
+    width: 100%;
+    height: 600px; /* Aumentado para dar mais espaço */
+    border: 1px solid lightgray;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Ajustes para grafos grandes */
+#myNetwork.large-graph {
+    height: 700px; /* Mais espaço para grafos grandes */
+}
+
+/* Ajustes para grafos muito grandes (ultra-expandidos) */
+#myNetwork.very-large-graph {
+    height: 800px; /* Maximum space for ultra-expanded graphs */
+    width: 100%;
+}
+
+/* Camada de sobreposição para destacar caminho */
+.caminho-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite interação com o grafo abaixo */
+    z-index: 500;
+    transition: opacity 0.3s ease;
+}
+
+.caminho-overlay.hidden {
+    opacity: 0;
+}
+
+/* Linha do caminho sobreposta */
+.caminho-path {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.path-line {
+    position: absolute;
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    height: 4px;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.6);
+    animation: pathPulse 2s ease-in-out infinite;
+    transform-origin: left center;
+}
+
+@keyframes pathPulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; box-shadow: 0 2px 12px rgba(255, 215, 0, 0.8); }
+}
+
+/* Labels de peso sobrepostos */
+.peso-labels {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.peso-label {
+    position: absolute;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%);
+    animation: labelBounce 0.5s ease-out;
+    z-index: 501;
+}
+
+@keyframes labelBounce {
+    0% { transform: translate(-50%, -50%) scale(0); }
+    70% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Indicadores de nós do caminho */
+.node-indicator {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #FFD700;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.2);
+    transform: translate(-50%, -50%);
+    animation: nodeGlow 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes nodeGlow {
+    0%, 100% { 
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        border-color: #FFD700;
+    }
+    50% { 
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        border-color: #FFA500;
+    }
+}
+
+/* Controles de zoom personalizados */
+.zoom-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.zoom-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    transition: all 0.2s;
+}
+
+.zoom-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: #999;
+    transform: scale(1.05);
+}
+
+.zoom-btn:active {
+    transform: scale(0.95);
+}
+
+/* Botão de expansão com estado especial */
+.zoom-btn.expansion-active {
+    background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+    color: #000 !important;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Indicador de modo ultra-expandido */
+.ultra-expanded-indicator {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3); }
+    50% { box-shadow: 0 2px 15px rgba(255, 215, 0, 0.6); }
+}
+
+.resultado-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.caminho-info {
+    background-color: #f0f8ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #4CAF50;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.caminho-info h3 {
+    color: #2c3e50;
+    font-size: 1.4em;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.caminho-info p {
+    margin: 8px 0;
+    color: #34495e;
+}
+
+.nenhum-caminho {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.nenhum-caminho h2 {
+    color: #856404;
+    margin-bottom: 10px;
+}
+
+.nenhum-caminho p {
+    color: #856404;
+}
+
+.btn-voltar {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 20px 0;
+    transition: background-color 0.3s;
+}
+
+.btn-voltar:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+    color: white;
+}
+
+.grafo-section {
+    margin: 30px 0;
+}
+
+.grafo-section h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+/* Informações do grafo */
+.grafo-info {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.grafo-info.large-graph {
+    background-color: #fff3cd;
+    border-color: #ffeaa7;
+    color: #856404;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .resultado-container {
+        padding: 10px;
+    }
+    
+    #myNetwork {
+        height: 400px;
+    }
+    
+    #myNetwork.large-graph {
+        height: 500px;
+    }
+    
+    .caminho-info {
+        padding: 10px;
+    }
+    
+    .zoom-controls {
+        top: 5px;
+        right: 5px;
+    }
+    
+    .zoom-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+    
+    /* Ajustes da sobreposição em mobile */
+    .peso-label {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+    
+    .node-indicator {
+        width: 30px;
+        height: 30px;
+        border-width: 2px;
+    }
+    
+    .path-line {
+        height: 3px;
+    }
+}

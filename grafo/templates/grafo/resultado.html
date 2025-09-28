@@ -3,23 +3,62 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{ % static 'css/styles.css' % }">
-    <title>Resultado do Dijikastra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/resultado.css' %}">
+    <title>Resultado do Dijkstra</title>
 </head>
 <body>
-    <h1>Resultado do Dijikastra</h1>
+    <div class="resultado-container">
+        <h1>Resultado do Algoritmo de Dijkstra</h1>
 
-    {% if caminho %}
-        <p>O menor caminho de <strong>{{ caminho.0 }}</strong> até <strong>{{ caminho|last }}</strong> é:</p>
-        <h3>{{ caminho|join:" -> " }}</h3>
-        <p><strong>Distância Total:</strong> {{ distancia }}</p>
-    {% else %}
-        <h2>Nenhum caminho encontrado.</h2>
-        <p>Não foi possível encontrar um caminho entre os pontos selecionados.</p>
-    {% endif %}
+        {% if caminho %}
+            <div class="caminho-info">
+                <p>O menor caminho de <strong>{{ caminho.0 }}</strong> até <strong>{{ caminho|last }}</strong> é:</p>
+                <h3>{{ caminho|join:" → " }}</h3>
+                <p><strong>Distância Total:</strong> {{ distancia }}</p>
+            </div>
+        {% else %}
+            <div class="nenhum-caminho">
+                <h2>Nenhum caminho encontrado</h2>
+                <p>Não foi possível encontrar um caminho entre os pontos selecionados.</p>
+            </div>
+        {% endif %}
 
-    <br>
-    <a href="{% url 'index' %}">Calcular novamente</a>
-    <script src="{% static 'js/scripts.js' %}"></script>
+        <div class="grafo-section">
+            <h3>Visualização do Grafo</h3>        
+            </div>
+            <div id="myNetwork">
+                <div class="caminho-overlay" id="caminho-overlay">
+                    <div class="caminho-path" id="caminho-path"></div>
+                    <div class="peso-labels" id="peso-labels"></div>
+                </div>
+                
+                <div class="zoom-controls" id="zoom-controls" style="display: flex;">
+                    <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
+                    <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
+                    <button class="zoom-btn" onclick="fitGraph()" title="Ajustar">⌂</button>
+                    <button class="zoom-btn expansion-active" onclick="toggleExpansion()" title="Layout Normal">⚡</button>
+                    <button class="zoom-btn" onclick="toggleOverlay()" title="Alternar Sobreposição">👁</button>
+                </div>
+            </div>
+        </div>
+        
+        <a href="{% url 'index' %}" class="btn-voltar">← Calcular novamente</a>
+    </div>
+
+    <!-- Nao tirar se n para de funcionar -->
+    <script>
+        window.verticesData = {{ vertices_data|safe }};
+        window.caminhoData = {{ caminho_json|safe }};
+        window.pontoPartida = "{{ ponto_partida }}";
+        window.pontoDestino = "{{ ponto_destino }}";
+        window.distanciaTotal = {{ distancia|default:0 }};
+    </script>
+    
+
+    <script src="{% static 'js/resultado_grafo.js' %}"></script>
+    <script src="{% static 'js/resultado_init.js' %}"></script>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 </body>
 </html>
