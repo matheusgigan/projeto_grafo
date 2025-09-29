@@ -1,0 +1,522 @@
+/* Reset e configurações base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../img/fundo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 5px;
+    position: relative;
+}
+
+/* Overlay semi-transparente para melhor legibilidade */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.4) 0%, 
+        rgba(75, 0, 130, 0.5) 50%, 
+        rgba(30, 144, 255, 0.4) 100%);
+    z-index: -1;
+}
+
+/* Container principal - mais compacto */
+.resultado-container {
+    max-width: 1200px;
+    margin: 0vh auto;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+    min-height: auto;
+}
+
+/* Título principal - mais compacto */
+h1 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 
+        0 0 20px rgba(138, 43, 226, 0.8),
+        0 0 30px rgba(30, 144, 255, 0.6),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+/* Subtítulos - mais compactos */
+h2 {
+    color: #e0e6ff;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-shadow: 
+        0 0 15px rgba(30, 144, 255, 0.7),
+        2px 2px 4px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1px;
+}
+
+h3 {
+    color: #f0f8ff;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Seção de informações do caminho - mais compacta */
+.caminho-info {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 6px 24px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.caminho-info h2 {
+    color: #e0e6ff;
+    font-size: 1.2em;
+    margin-bottom: 8px;
+    text-shadow: 
+        0 0 15px rgba(30, 144, 255, 0.7),
+        2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.caminho-info h3 {
+    color: #ffd700;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 8px 0;
+    text-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.8),
+        1px 1px 3px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding: 8px;
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.caminho-info p {
+    color: #f0f8ff;
+    font-size: 0.95em;
+    font-weight: 500;
+    margin: 5px 0;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        1px 1px 3px rgba(0, 0, 0, 0.8);
+    line-height: 1.3;
+}
+
+.caminho-info strong {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+/* Seção do grafo - mais compacta */
+.grafo-section {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.grafo-section h3 {
+    color: #e0e6ff;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+    text-shadow: 
+        0 0 15px rgba(30, 144, 255, 0.7),
+        2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Seção para quando não há caminho */
+.nenhum-caminho {
+    background: rgba(244, 67, 54, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    text-align: center;
+    box-shadow: 
+        0 8px 32px rgba(244, 67, 54, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.nenhum-caminho h2 {
+    color: #ff6b6b;
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-shadow: 
+        0 0 15px rgba(255, 107, 107, 0.8),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.nenhum-caminho p {
+    color: #ffcccb;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* Container do grafo responsivo - mais compacto */
+.grafo-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+#myNetwork {
+    width: 100%;
+    height: 220px;
+    max-width: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.1);
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Controles de zoom responsivos */
+.zoom-controls {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 10;
+}
+
+.zoom-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    touch-action: manipulation;
+}
+
+.zoom-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+/* Melhorias para touch em dispositivos móveis */
+@media (max-width: 768px) {
+    .grafo-container {
+        padding: 10px;
+        margin-top: 15px;
+    }
+    
+    #mynetworkid {
+        height: 280px;
+        border-width: 1px;
+        touch-action: pan-x pan-y;
+    }
+    
+    .zoom-controls {
+        top: 10px;
+        right: 10px;
+        gap: 3px;
+    }
+    
+    .zoom-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grafo-container {
+        padding: 8px;
+        border-radius: 10px;
+    }
+    
+    #mynetworkid {
+        height: 350px;
+        border-radius: 8px;
+    }
+    
+    .zoom-controls {
+        top: 8px;
+        right: 8px;
+    }
+    
+    .zoom-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+}
+
+/* Botão voltar como ícone no canto superior esquerdo */
+.btn-voltar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.9) 0%, 
+        rgba(75, 0, 130, 0.9) 50%, 
+        rgba(30, 144, 255, 0.9) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 1.2em;
+    text-align: center;
+    transition: all 0.4s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 20px rgba(138, 43, 226, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.btn-voltar::before {
+    content: '↶';
+    font-size: 1.4em;
+    display: block;
+}
+
+.btn-voltar:hover {
+    background: linear-gradient(135deg, 
+        rgba(158, 67, 255, 1) 0%, 
+        rgba(106, 13, 173, 1) 50%, 
+        rgba(65, 180, 255, 1) 100%);
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 
+        0 12px 30px rgba(138, 43, 226, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-voltar:active {
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 
+        0 6px 15px rgba(138, 43, 226, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Lista do caminho */
+.caminho-lista {
+    color: #f0f8ff;
+    font-size: 1.2em;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.peso-total {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+/* Responsividade geral */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .resultado-container {
+        margin: 1vh auto;
+        padding: 15px;
+        border-radius: 20px;
+        max-width: 100%;
+    }
+    
+    h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+    
+    .caminho-info {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+    }
+    
+    .caminho-info h2 {
+        font-size: 1.3em;
+        margin-bottom: 12px;
+    }
+    
+    .caminho-info p {
+        font-size: 1em;
+        margin: 6px 0;
+    }
+    
+    .grafo-container {
+        padding: 10px;
+        margin-top: 15px;
+    }
+    
+    #mynetworkid {
+        height: 280px;
+        border-width: 1px;
+        touch-action: pan-x pan-y;
+    }
+    
+    .zoom-controls {
+        top: 10px;
+        right: 10px;
+        gap: 3px;
+    }
+    
+    .zoom-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+    
+    .btn-voltar {
+        top: 15px;
+        left: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    
+    .resultado-container {
+        padding: 10px;
+        margin: 0.5vh auto;
+        border-radius: 15px;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+    
+    .caminho-info {
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+    
+    .caminho-info h2 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+    
+    .caminho-info p {
+        font-size: 0.9em;
+        margin: 5px 0;
+    }
+    
+    .grafo-container {
+        padding: 8px;
+        border-radius: 10px;
+    }
+    
+    #mynetworkid {
+        height: 350px;
+        border-radius: 8px;
+    }
+    
+    .zoom-controls {
+        top: 8px;
+        right: 8px;
+    }
+    
+    .zoom-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .btn-voltar {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1em;
+    }
+    
+    .caminho-lista {
+        font-size: 1em;
+    }
+    
+    .peso-total {
+        font-size: 1.1em;
+    }
+}
+
+/* Responsividade para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .resultado-container {
+        margin: 1.5vh auto;
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2.2em;
+    }
+    
+    .caminho-info {
+        padding: 18px;
+    }
+    
+    #mynetworkid {
+        height: 450px;
+    }
+}
