@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/resultado.css' %}">
-    <title>Resultado do Dijkstra</title>
+    
+    <!-- VIS.JS - CARREGAR ANTES -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    
+    <title>Resultado do Dijikastra</title>
 </head>
 <body>
     <div class="resultado-container">
-        <h1>Resultado do Algoritmo de Dijkstra</h1>
+        <h1>Resultado do Algoritmo de Dijikastra</h1>
 
         {% if caminho %}
             <div class="caminho-info">
@@ -27,38 +31,45 @@
 
         <div class="grafo-section">
             <h3>Visualização do Grafo</h3>        
-            </div>
             <div id="myNetwork">
-                <div class="caminho-overlay" id="caminho-overlay">
-                    <div class="caminho-path" id="caminho-path"></div>
-                    <div class="peso-labels" id="peso-labels"></div>
-                </div>
-                
-                <div class="zoom-controls" id="zoom-controls" style="display: flex;">
+                <div class="zoom-controls">
                     <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
                     <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
                     <button class="zoom-btn" onclick="fitGraph()" title="Ajustar">⌂</button>
-                    <button class="zoom-btn expansion-active" onclick="toggleExpansion()" title="Layout Normal">⚡</button>
-                    <button class="zoom-btn" onclick="toggleOverlay()" title="Alternar Sobreposição">👁</button>
                 </div>
             </div>
         </div>
         
-        <a href="{% url 'index' %}" class="btn-voltar">← Calcular novamente</a>
+        <a href="{% url 'index' %}" class="btn-voltar" title="Calcular novamente"></a>
     </div>
 
-    <!-- Nao tirar se n para de funcionar -->
+    <!-- Dados para o JavaScript -->
     <script>
+        // Dados do Django
         window.verticesData = {{ vertices_data|safe }};
         window.caminhoData = {{ caminho_json|safe }};
         window.pontoPartida = "{{ ponto_partida }}";
         window.pontoDestino = "{{ ponto_destino }}";
         window.distanciaTotal = {{ distancia|default:0 }};
+        
+        // Inicializar quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== DADOS CARREGADOS ===');
+            console.log('Vértices:', window.verticesData);
+            console.log('Caminho:', window.caminhoData);
+            console.log('Origem:', window.pontoPartida);
+            console.log('Destino:', window.pontoDestino);
+            
+            // Verificar se temos dados
+            if (window.verticesData) {
+                // Criar o grafo com os novos parâmetros
+                criarGrafoSimples(window.verticesData, window.caminhoData, window.pontoPartida, window.pontoDestino);
+            } else {
+                console.error('Dados não encontrados!');
+            }
+        });
     </script>
     
-
-    <script src="{% static 'js/resultado_grafo.js' %}"></script>
     <script src="{% static 'js/resultado_init.js' %}"></script>
-    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 </body>
 </html>

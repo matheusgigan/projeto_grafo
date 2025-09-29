@@ -35,11 +35,11 @@ body::before {
 /* Container principal - mais compacto */
 .resultado-container {
     max-width: 1200px;
-    margin: 0vh auto;
-    padding: 10px;
+    margin: 1vh auto;
+    padding: 20px;
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(15px);
-    border-radius: 15px;
+    border-radius: 20px;
     box-shadow: 
         0 20px 40px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -52,9 +52,9 @@ body::before {
 h1 {
     text-align: center;
     color: #ffffff;
-    font-size: 1.5em;
+    font-size: 2.2em;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-shadow: 
         0 0 20px rgba(138, 43, 226, 0.8),
         0 0 30px rgba(30, 144, 255, 0.6),
@@ -66,9 +66,9 @@ h1 {
 /* Subtítulos - mais compactos */
 h2 {
     color: #e0e6ff;
-    font-size: 1.3em;
+    font-size: 1.6em;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-shadow: 
         0 0 15px rgba(30, 144, 255, 0.7),
         2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -77,9 +77,9 @@ h2 {
 
 h3 {
     color: #f0f8ff;
-    font-size: 1.1em;
+    font-size: 1.3em;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     text-shadow: 
         0 0 10px rgba(255, 255, 255, 0.5),
         1px 1px 3px rgba(0, 0, 0, 0.8);
@@ -89,9 +89,9 @@ h3 {
 .caminho-info {
     background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(20px);
-    border-radius: 12px;
-    padding: 8px;
-    margin-bottom: 10px;
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 
         0 6px 24px rgba(0, 0, 0, 0.1),
@@ -100,8 +100,8 @@ h3 {
 
 .caminho-info h2 {
     color: #e0e6ff;
-    font-size: 1.2em;
-    margin-bottom: 8px;
+    font-size: 1.4em;
+    margin-bottom: 15px;
     text-shadow: 
         0 0 15px rgba(30, 144, 255, 0.7),
         2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -109,28 +109,28 @@ h3 {
 
 .caminho-info h3 {
     color: #ffd700;
-    font-size: 1.1em;
+    font-size: 1.3em;
     font-weight: 600;
-    margin: 8px 0;
+    margin: 12px 0;
     text-shadow: 
         0 0 15px rgba(255, 215, 0, 0.8),
         1px 1px 3px rgba(0, 0, 0, 0.8);
     text-align: center;
-    padding: 8px;
+    padding: 12px;
     background: rgba(255, 215, 0, 0.1);
-    border-radius: 10px;
+    border-radius: 12px;
     border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .caminho-info p {
     color: #f0f8ff;
-    font-size: 0.95em;
+    font-size: 1.1em;
     font-weight: 500;
-    margin: 5px 0;
+    margin: 8px 0;
     text-shadow: 
         0 0 10px rgba(255, 255, 255, 0.5),
         1px 1px 3px rgba(0, 0, 0, 0.8);
-    line-height: 1.3;
+    line-height: 1.4;
 }
 
 .caminho-info strong {
@@ -160,8 +160,8 @@ h3 {
     background: rgba(244, 67, 54, 0.15);
     backdrop-filter: blur(20px);
     border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 30px;
+    padding: 20px;
+    margin-bottom: 20px;
     border: 1px solid rgba(244, 67, 54, 0.3);
     text-align: center;
     box-shadow: 
@@ -171,8 +171,8 @@ h3 {
 
 .nenhum-caminho h2 {
     color: #ff6b6b;
-    font-size: 2em;
-    margin-bottom: 15px;
+    font-size: 1.6em;
+    margin-bottom: 10px;
     text-shadow: 
         0 0 15px rgba(255, 107, 107, 0.8),
         2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -180,7 +180,7 @@ h3 {
 
 .nenhum-caminho p {
     color: #ffcccb;
-    font-size: 1.2em;
+    font-size: 1em;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
@@ -199,7 +199,7 @@ h3 {
 
 #myNetwork {
     width: 100%;
-    height: 220px;
+    height: 500px;
     max-width: 100%;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
@@ -243,63 +243,13 @@ h3 {
     transform: scale(1.05);
 }
 
-/* Melhorias para touch em dispositivos móveis */
-@media (max-width: 768px) {
-    .grafo-container {
-        padding: 10px;
-        margin-top: 15px;
-    }
-    
-    #mynetworkid {
-        height: 280px;
-        border-width: 1px;
-        touch-action: pan-x pan-y;
-    }
-    
-    .zoom-controls {
-        top: 10px;
-        right: 10px;
-        gap: 3px;
-    }
-    
-    .zoom-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 14px;
-        border-radius: 6px;
-    }
-}
-
-@media (max-width: 480px) {
-    .grafo-container {
-        padding: 8px;
-        border-radius: 10px;
-    }
-    
-    #mynetworkid {
-        height: 350px;
-        border-radius: 8px;
-    }
-    
-    .zoom-controls {
-        top: 8px;
-        right: 8px;
-    }
-    
-    .zoom-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 12px;
-    }
-}
-
 /* Botão voltar como ícone no canto superior esquerdo */
 .btn-voltar {
     position: fixed;
     top: 20px;
     left: 20px;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     padding: 0;
     background: linear-gradient(135deg, 
         rgba(138, 43, 226, 0.9) 0%, 
@@ -309,7 +259,7 @@ h3 {
     text-decoration: none;
     border-radius: 50%;
     font-weight: 700;
-    font-size: 1.2em;
+    font-size: 1.5em;
     text-align: center;
     transition: all 0.4s ease;
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -326,7 +276,7 @@ h3 {
 
 .btn-voltar::before {
     content: '↶';
-    font-size: 1.4em;
+    font-size: 1.6em;
     display: block;
 }
 
@@ -352,7 +302,7 @@ h3 {
 /* Lista do caminho */
 .caminho-lista {
     color: #f0f8ff;
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: 500;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
@@ -360,51 +310,51 @@ h3 {
 .peso-total {
     color: #ffd700;
     font-weight: bold;
-    font-size: 1.3em;
+    font-size: 1.1em;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
 /* Responsividade geral */
 @media (max-width: 768px) {
     body {
-        padding: 10px;
+        padding: 5px;
     }
     
     .resultado-container {
-        margin: 1vh auto;
-        padding: 15px;
-        border-radius: 20px;
+        margin: 0vh auto;
+        padding: 10px;
+        border-radius: 15px;
         max-width: 100%;
     }
     
     h1 {
-        font-size: 2em;
-        margin-bottom: 20px;
+        font-size: 1.4em;
+        margin-bottom: 8px;
     }
     
     .caminho-info {
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 12px;
+        padding: 8px;
+        margin-bottom: 8px;
+        border-radius: 10px;
     }
     
     .caminho-info h2 {
-        font-size: 1.3em;
-        margin-bottom: 12px;
+        font-size: 1.1em;
+        margin-bottom: 6px;
     }
     
     .caminho-info p {
-        font-size: 1em;
-        margin: 6px 0;
+        font-size: 0.85em;
+        margin: 4px 0;
     }
     
     .grafo-container {
-        padding: 10px;
-        margin-top: 15px;
+        padding: 5px;
+        margin-top: 5px;
     }
     
-    #mynetworkid {
-        height: 280px;
+    #myNetwork {
+        height: 300px;
         border-width: 1px;
         touch-action: pan-x pan-y;
     }
@@ -425,52 +375,52 @@ h3 {
     .btn-voltar {
         top: 15px;
         left: 15px;
-        width: 45px;
-        height: 45px;
-        font-size: 1.1em;
+        width: 55px;
+        height: 55px;
+        font-size: 1.4em;
     }
 }
 
 @media (max-width: 480px) {
     body {
-        padding: 5px;
+        padding: 3px;
     }
     
     .resultado-container {
-        padding: 10px;
-        margin: 0.5vh auto;
-        border-radius: 15px;
+        padding: 8px;
+        margin: 0vh auto;
+        border-radius: 12px;
     }
     
     h1 {
-        font-size: 1.8em;
-        margin-bottom: 15px;
+        font-size: 1.2em;
+        margin-bottom: 6px;
     }
     
     .caminho-info {
-        padding: 12px;
-        margin-bottom: 15px;
-        border-radius: 10px;
+        padding: 6px;
+        margin-bottom: 6px;
+        border-radius: 8px;
     }
     
     .caminho-info h2 {
-        font-size: 1.2em;
-        margin-bottom: 10px;
+        font-size: 1em;
+        margin-bottom: 5px;
     }
     
     .caminho-info p {
-        font-size: 0.9em;
-        margin: 5px 0;
+        font-size: 0.8em;
+        margin: 3px 0;
     }
     
     .grafo-container {
-        padding: 8px;
-        border-radius: 10px;
+        padding: 3px;
+        border-radius: 8px;
     }
     
-    #mynetworkid {
-        height: 350px;
-        border-radius: 8px;
+    #myNetwork {
+        height: 180px;
+        border-radius: 6px;
     }
     
     .zoom-controls {
@@ -487,36 +437,36 @@ h3 {
     .btn-voltar {
         top: 10px;
         left: 10px;
-        width: 40px;
-        height: 40px;
-        font-size: 1em;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2em;
     }
     
     .caminho-lista {
-        font-size: 1em;
+        font-size: 0.9em;
     }
     
     .peso-total {
-        font-size: 1.1em;
+        font-size: 1em;
     }
 }
 
 /* Responsividade para tablets */
 @media (min-width: 769px) and (max-width: 1024px) {
     .resultado-container {
-        margin: 1.5vh auto;
-        padding: 15px;
+        margin: 0vh auto;
+        padding: 12px;
     }
     
     h1 {
-        font-size: 2.2em;
+        font-size: 1.6em;
     }
     
     .caminho-info {
-        padding: 18px;
+        padding: 10px;
     }
     
-    #mynetworkid {
-        height: 450px;
+    #myNetwork {
+        height: 350px;
     }
 }

@@ -1,311 +1,472 @@
-/* Estilos específicos para a página de resultado do Dijkstra */
+/* Reset e configurações base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-#myNetwork {
-    width: 100%;
-    height: 600px; /* Aumentado para dar mais espaço */
-    border: 1px solid lightgray;
-    margin: 20px 0;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+body {
+    background-image: url('../img/fundo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 5px;
     position: relative;
 }
 
-/* Ajustes para grafos grandes */
-#myNetwork.large-graph {
-    height: 700px; /* Mais espaço para grafos grandes */
-}
-
-/* Ajustes para grafos muito grandes (ultra-expandidos) */
-#myNetwork.very-large-graph {
-    height: 800px; /* Maximum space for ultra-expanded graphs */
-    width: 100%;
-}
-
-/* Camada de sobreposição para destacar caminho */
-.caminho-overlay {
-    position: absolute;
+/* Overlay semi-transparente para melhor legibilidade */
+body::before {
+    content: '';
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Permite interação com o grafo abaixo */
-    z-index: 500;
-    transition: opacity 0.3s ease;
+    background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.4) 0%, 
+        rgba(75, 0, 130, 0.5) 50%, 
+        rgba(30, 144, 255, 0.4) 100%);
+    z-index: -1;
 }
 
-.caminho-overlay.hidden {
-    opacity: 0;
+/* Container principal - mais compacto */
+.resultado-container {
+    max-width: 1200px;
+    margin: 1vh auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+    min-height: auto;
 }
 
-/* Linha do caminho sobreposta */
-.caminho-path {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+/* Título principal - mais compacto */
+h1 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 
+        0 0 20px rgba(138, 43, 226, 0.8),
+        0 0 30px rgba(30, 144, 255, 0.6),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+    font-family: 'Arial Black', sans-serif;
 }
 
-.path-line {
-    position: absolute;
-    background: linear-gradient(90deg, #FFD700, #FFA500);
-    height: 4px;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.6);
-    animation: pathPulse 2s ease-in-out infinite;
-    transform-origin: left center;
+/* Subtítulos - mais compactos */
+h2 {
+    color: #e0e6ff;
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-shadow: 
+        0 0 15px rgba(30, 144, 255, 0.7),
+        2px 2px 4px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1px;
 }
 
-@keyframes pathPulse {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; box-shadow: 0 2px 12px rgba(255, 215, 0, 0.8); }
+h3 {
+    color: #f0f8ff;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
-/* Labels de peso sobrepostos */
-.peso-labels {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+/* Seção de informações do caminho - mais compacta */
+.caminho-info {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 6px 24px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-.peso-label {
-    position: absolute;
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    color: #000;
-    padding: 4px 8px;
+.caminho-info h2 {
+    color: #e0e6ff;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    text-shadow: 
+        0 0 15px rgba(30, 144, 255, 0.7),
+        2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.caminho-info h3 {
+    color: #ffd700;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 12px 0;
+    text-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.8),
+        1px 1px 3px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding: 12px;
+    background: rgba(255, 215, 0, 0.1);
     border-radius: 12px;
-    font-weight: bold;
-    font-size: 12px;
-    border: 2px solid #FFFFFF;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    transform: translate(-50%, -50%);
-    animation: labelBounce 0.5s ease-out;
-    z-index: 501;
+    border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
-@keyframes labelBounce {
-    0% { transform: translate(-50%, -50%) scale(0); }
-    70% { transform: translate(-50%, -50%) scale(1.1); }
-    100% { transform: translate(-50%, -50%) scale(1); }
+.caminho-info p {
+    color: #f0f8ff;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin: 8px 0;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        1px 1px 3px rgba(0, 0, 0, 0.8);
+    line-height: 1.4;
 }
 
-/* Indicadores de nós do caminho */
-.node-indicator {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 3px solid #FFD700;
-    border-radius: 50%;
-    background: rgba(255, 215, 0, 0.2);
-    transform: translate(-50%, -50%);
-    animation: nodeGlow 2s ease-in-out infinite;
-    pointer-events: none;
+.caminho-info strong {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
-@keyframes nodeGlow {
-    0%, 100% { 
-        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        border-color: #FFD700;
-    }
-    50% { 
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-        border-color: #FFA500;
-    }
+/* Seção do grafo - mais compacta */
+.grafo-section {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-/* Controles de zoom personalizados */
+.grafo-section h3 {
+    color: #e0e6ff;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+    text-shadow: 
+        0 0 15px rgba(30, 144, 255, 0.7),
+        2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Seção para quando não há caminho */
+.nenhum-caminho {
+    background: rgba(244, 67, 54, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    text-align: center;
+    box-shadow: 
+        0 8px 32px rgba(244, 67, 54, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.nenhum-caminho h2 {
+    color: #ff6b6b;
+    font-size: 1.6em;
+    margin-bottom: 10px;
+    text-shadow: 
+        0 0 15px rgba(255, 107, 107, 0.8),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.nenhum-caminho p {
+    color: #ffcccb;
+    font-size: 1em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* Container do grafo responsivo - mais compacto */
+.grafo-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+#myNetwork {
+    width: 100%;
+    height: 500px;
+    max-width: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.1);
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Controles de zoom responsivos */
 .zoom-controls {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
+    top: 15px;
+    right: 15px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    z-index: 10;
 }
 
 .zoom-btn {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 30px;
-    height: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    font-size: 16px;
     font-weight: bold;
-    color: #333;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    touch-action: manipulation;
 }
 
 .zoom-btn:hover {
-    background: rgba(255, 255, 255, 1);
-    border-color: #999;
+    background: rgba(255, 255, 255, 0.25);
     transform: scale(1.05);
 }
 
-.zoom-btn:active {
-    transform: scale(0.95);
-}
-
-/* Botão de expansão com estado especial */
-.zoom-btn.expansion-active {
-    background: linear-gradient(135deg, #FFD700, #FFA500) !important;
-    color: #000 !important;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-}
-
-/* Indicador de modo ultra-expandido */
-.ultra-expanded-indicator {
-    position: absolute;
-    top: 50px;
-    right: 10px;
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    color: #000;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-    animation: pulseGlow 2s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3); }
-    50% { box-shadow: 0 2px 15px rgba(255, 215, 0, 0.6); }
-}
-
-.resultado-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.caminho-info {
-    background-color: #f0f8ff;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 20px 0;
-    border-left: 4px solid #4CAF50;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.caminho-info h3 {
-    color: #2c3e50;
-    font-size: 1.4em;
-    margin: 10px 0;
-    font-weight: bold;
-}
-
-.caminho-info p {
-    margin: 8px 0;
-    color: #34495e;
-}
-
-.nenhum-caminho {
-    background-color: #fff3cd;
-    border: 1px solid #ffeaa7;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-    text-align: center;
-}
-
-.nenhum-caminho h2 {
-    color: #856404;
-    margin-bottom: 10px;
-}
-
-.nenhum-caminho p {
-    color: #856404;
-}
-
+/* Botão voltar como ícone no canto superior esquerdo */
 .btn-voltar {
-    display: inline-block;
-    background-color: #007bff;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.9) 0%, 
+        rgba(75, 0, 130, 0.9) 50%, 
+        rgba(30, 144, 255, 0.9) 100%);
     color: white;
-    padding: 10px 20px;
     text-decoration: none;
-    border-radius: 5px;
-    margin: 20px 0;
-    transition: background-color 0.3s;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 1.5em;
+    text-align: center;
+    transition: all 0.4s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 20px rgba(138, 43, 226, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.btn-voltar::before {
+    content: '↶';
+    font-size: 1.6em;
+    display: block;
 }
 
 .btn-voltar:hover {
-    background-color: #0056b3;
-    text-decoration: none;
-    color: white;
+    background: linear-gradient(135deg, 
+        rgba(158, 67, 255, 1) 0%, 
+        rgba(106, 13, 173, 1) 50%, 
+        rgba(65, 180, 255, 1) 100%);
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 
+        0 12px 30px rgba(138, 43, 226, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
-.grafo-section {
-    margin: 30px 0;
+.btn-voltar:active {
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 
+        0 6px 15px rgba(138, 43, 226, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.grafo-section h3 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 1.3em;
+/* Lista do caminho */
+.caminho-lista {
+    color: #f0f8ff;
+    font-size: 1em;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
-/* Informações do grafo */
-.grafo-info {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 6px;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-size: 14px;
-    color: #6c757d;
+.peso-total {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
-.grafo-info.large-graph {
-    background-color: #fff3cd;
-    border-color: #ffeaa7;
-    color: #856404;
-}
-
-/* Responsividade */
+/* Responsividade geral */
 @media (max-width: 768px) {
+    body {
+        padding: 5px;
+    }
+    
     .resultado-container {
+        margin: 0vh auto;
         padding: 10px;
+        border-radius: 15px;
+        max-width: 100%;
+    }
+    
+    h1 {
+        font-size: 1.4em;
+        margin-bottom: 8px;
+    }
+    
+    .caminho-info {
+        padding: 8px;
+        margin-bottom: 8px;
+        border-radius: 10px;
+    }
+    
+    .caminho-info h2 {
+        font-size: 1.1em;
+        margin-bottom: 6px;
+    }
+    
+    .caminho-info p {
+        font-size: 0.85em;
+        margin: 4px 0;
+    }
+    
+    .grafo-container {
+        padding: 5px;
+        margin-top: 5px;
     }
     
     #myNetwork {
-        height: 400px;
+        height: 300px;
+        border-width: 1px;
+        touch-action: pan-x pan-y;
     }
     
-    #myNetwork.large-graph {
-        height: 500px;
+    .zoom-controls {
+        top: 10px;
+        right: 10px;
+        gap: 3px;
+    }
+    
+    .zoom-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+    
+    .btn-voltar {
+        top: 15px;
+        left: 15px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 3px;
+    }
+    
+    .resultado-container {
+        padding: 8px;
+        margin: 0vh auto;
+        border-radius: 12px;
+    }
+    
+    h1 {
+        font-size: 1.2em;
+        margin-bottom: 6px;
+    }
+    
+    .caminho-info {
+        padding: 6px;
+        margin-bottom: 6px;
+        border-radius: 8px;
+    }
+    
+    .caminho-info h2 {
+        font-size: 1em;
+        margin-bottom: 5px;
+    }
+    
+    .caminho-info p {
+        font-size: 0.8em;
+        margin: 3px 0;
+    }
+    
+    .grafo-container {
+        padding: 3px;
+        border-radius: 8px;
+    }
+    
+    #myNetwork {
+        height: 180px;
+        border-radius: 6px;
+    }
+    
+    .zoom-controls {
+        top: 8px;
+        right: 8px;
+    }
+    
+    .zoom-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .btn-voltar {
+        top: 10px;
+        left: 10px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2em;
+    }
+    
+    .caminho-lista {
+        font-size: 0.9em;
+    }
+    
+    .peso-total {
+        font-size: 1em;
+    }
+}
+
+/* Responsividade para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .resultado-container {
+        margin: 0vh auto;
+        padding: 12px;
+    }
+    
+    h1 {
+        font-size: 1.6em;
     }
     
     .caminho-info {
         padding: 10px;
     }
     
-    .zoom-controls {
-        top: 5px;
-        right: 5px;
-    }
-    
-    .zoom-btn {
-        width: 25px;
-        height: 25px;
-        font-size: 12px;
-    }
-    
-    /* Ajustes da sobreposição em mobile */
-    .peso-label {
-        font-size: 10px;
-        padding: 2px 6px;
-    }
-    
-    .node-indicator {
-        width: 30px;
-        height: 30px;
-        border-width: 2px;
-    }
-    
-    .path-line {
-        height: 3px;
+    #myNetwork {
+        height: 350px;
     }
 }

@@ -1,0 +1,696 @@
+/* Reset e configurações base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../img/fundo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    position: relative;
+}
+
+/* Overlay semi-transparente para melhor legibilidade */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.4) 0%, 
+        rgba(75, 0, 130, 0.5) 50%, 
+        rgba(30, 144, 255, 0.4) 100%);
+    z-index: -1;
+}
+
+/* Container principal */
+.container-matriz {
+    max-width: 95vw;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    padding: clamp(15px, 2vw, 25px);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+    animation: slideInUp 0.8s ease-out;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header info */
+.header-info {
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+/* Informações do caminho */
+.caminho-info {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+}
+
+.caminho-info p {
+    color: #f0f8ff;
+    font-size: 0.95em;
+    line-height: 1.4;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.caminho-info .vertice {
+    color: #ffd700;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.instrucao {
+    font-style: italic;
+    color: #e0e6ff !important;
+}
+
+/* Container da matriz */
+.matriz-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: auto;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-height: 60vh;
+}
+
+/* Headers da matriz */
+.header-empty,
+.header-vertice,
+.row-vertice {
+    background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.9) 0%, 
+        rgba(75, 0, 130, 0.9) 100%) !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid #333 !important;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Células da matriz */
+.matriz-cell {
+    background: #fff !important;
+    border: 1px solid #333 !important;
+    backdrop-filter: none !important;
+}
+
+/* Inputs da matriz */
+.peso-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: #333;
+    text-align: center;
+    font-size: inherit;
+    font-weight: 500;
+    text-shadow: none;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    padding: 2px;
+}
+
+.peso-input:focus {
+    outline: 2px solid #0078d4;
+    background: #f0f8ff;
+    box-shadow: none;
+}
+
+/* Células diagonais (sempre 0) - pintadas de vermelho */
+.matriz-table tbody tr:nth-child(1) td:nth-child(2) .peso-input,
+.matriz-table tbody tr:nth-child(2) td:nth-child(3) .peso-input,
+.matriz-table tbody tr:nth-child(3) td:nth-child(4) .peso-input,
+.matriz-table tbody tr:nth-child(4) td:nth-child(5) .peso-input,
+.matriz-table tbody tr:nth-child(5) td:nth-child(6) .peso-input,
+.matriz-table tbody tr:nth-child(6) td:nth-child(7) .peso-input,
+.matriz-table tbody tr:nth-child(7) td:nth-child(8) .peso-input,
+.matriz-table tbody tr:nth-child(8) td:nth-child(9) .peso-input,
+.matriz-table tbody tr:nth-child(9) td:nth-child(10) .peso-input,
+.matriz-table tbody tr:nth-child(10) td:nth-child(11) .peso-input,
+.matriz-table tbody tr:nth-child(11) td:nth-child(12) .peso-input,
+.matriz-table tbody tr:nth-child(12) td:nth-child(13) .peso-input,
+.matriz-table tbody tr:nth-child(13) td:nth-child(14) .peso-input,
+.matriz-table tbody tr:nth-child(14) td:nth-child(15) .peso-input,
+.matriz-table tbody tr:nth-child(15) td:nth-child(16) .peso-input,
+.matriz-table tbody tr:nth-child(16) td:nth-child(17) .peso-input,
+.matriz-table tbody tr:nth-child(17) td:nth-child(18) .peso-input,
+.matriz-table tbody tr:nth-child(18) td:nth-child(19) .peso-input,
+.matriz-table tbody tr:nth-child(19) td:nth-child(20) .peso-input,
+.matriz-table tbody tr:nth-child(20) td:nth-child(21) .peso-input,
+.matriz-table tbody tr:nth-child(21) td:nth-child(22) .peso-input,
+.matriz-table tbody tr:nth-child(22) td:nth-child(23) .peso-input,
+.matriz-table tbody tr:nth-child(23) td:nth-child(24) .peso-input,
+.matriz-table tbody tr:nth-child(24) td:nth-child(25) .peso-input,
+.matriz-table tbody tr:nth-child(25) td:nth-child(26) .peso-input,
+.matriz-table tbody tr:nth-child(26) td:nth-child(27) .peso-input {
+    background: #ffebee !important;
+    color: #d32f2f !important;
+    font-weight: bold !important;
+    pointer-events: none;
+}
+
+.matriz-table tbody tr:nth-child(1) td:nth-child(2),
+.matriz-table tbody tr:nth-child(2) td:nth-child(3),
+.matriz-table tbody tr:nth-child(3) td:nth-child(4),
+.matriz-table tbody tr:nth-child(4) td:nth-child(5),
+.matriz-table tbody tr:nth-child(5) td:nth-child(6),
+.matriz-table tbody tr:nth-child(6) td:nth-child(7),
+.matriz-table tbody tr:nth-child(7) td:nth-child(8),
+.matriz-table tbody tr:nth-child(8) td:nth-child(9),
+.matriz-table tbody tr:nth-child(9) td:nth-child(10),
+.matriz-table tbody tr:nth-child(10) td:nth-child(11),
+.matriz-table tbody tr:nth-child(11) td:nth-child(12),
+.matriz-table tbody tr:nth-child(12) td:nth-child(13),
+.matriz-table tbody tr:nth-child(13) td:nth-child(14),
+.matriz-table tbody tr:nth-child(14) td:nth-child(15),
+.matriz-table tbody tr:nth-child(15) td:nth-child(16),
+.matriz-table tbody tr:nth-child(16) td:nth-child(17),
+.matriz-table tbody tr:nth-child(17) td:nth-child(18),
+.matriz-table tbody tr:nth-child(18) td:nth-child(19),
+.matriz-table tbody tr:nth-child(19) td:nth-child(20),
+.matriz-table tbody tr:nth-child(20) td:nth-child(21),
+.matriz-table tbody tr:nth-child(21) td:nth-child(22),
+.matriz-table tbody tr:nth-child(22) td:nth-child(23),
+.matriz-table tbody tr:nth-child(23) td:nth-child(24),
+.matriz-table tbody tr:nth-child(24) td:nth-child(25),
+.matriz-table tbody tr:nth-child(25) td:nth-child(26),
+.matriz-table tbody tr:nth-child(26) td:nth-child(27) {
+    background: #ffcdd2 !important;
+    border: 2px solid #d32f2f !important;
+}
+
+/* Container do botão */
+.button-container {
+    text-align: center;
+    margin-top: 15px;
+    flex-shrink: 0;
+}
+
+/* Botão calcular */
+.calcular-btn {
+    padding: 12px 30px;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.9) 0%, 
+        rgba(75, 0, 130, 0.9) 50%, 
+        rgba(30, 144, 255, 0.9) 100%);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.3),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+    box-shadow: 
+        0 8px 20px rgba(138, 43, 226, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.calcular-btn:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 25px 50px rgba(138, 43, 226, 0.6),
+        0 0 30px rgba(30, 144, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, 
+        rgba(30, 144, 255, 0.9) 0%, 
+        rgba(138, 43, 226, 0.9) 50%, 
+        rgba(255, 215, 0, 0.8) 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Animação de entrada */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Título principal */
+h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 
+        0 0 20px rgba(138, 43, 226, 0.8),
+        0 0 30px rgba(30, 144, 255, 0.6),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+/* Instruções */
+.instrucoes {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.instrucoes h2 {
+    color: #e0e6ff;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    text-shadow: 
+        0 0 15px rgba(30, 144, 255, 0.7),
+        2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.instrucoes p {
+    color: #f0f8ff;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.instrucoes ul {
+    text-align: left;
+    color: #f0f8ff;
+    font-size: 1em;
+    line-height: 1.6;
+    padding-left: 20px;
+}
+
+.instrucoes li {
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Container da matriz */
+.matriz-wrapper {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow-x: auto;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tabela da matriz */
+.matriz-table {
+    border-collapse: collapse;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: block;
+    overflow: auto;
+    white-space: nowrap;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.matriz-table thead,
+.matriz-table tbody,
+.matriz-table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Células da matriz */
+.matriz-table th,
+.matriz-table td {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #333;
+    font-weight: 500;
+    font-size: 0.8em;
+    position: relative;
+    min-width: 40px;
+    max-width: 40px;
+    background: #fff;
+}
+
+/* Headers da matriz */
+.matriz-table th {
+    background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.8) 0%, 
+        rgba(75, 0, 130, 0.8) 100%);
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Células de input */
+.matriz-table td {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+/* Inputs da matriz */
+.matriz-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    text-align: center;
+    font-size: inherit;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    padding: 2px;
+}
+
+.matriz-input:focus {
+    outline: none;
+    background: rgba(138, 43, 226, 0.3);
+    box-shadow: 
+        0 0 15px rgba(138, 43, 226, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.matriz-input:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Células diagonais (sempre 0) */
+.diagonal {
+    background: rgba(75, 0, 130, 0.4) !important;
+    color: #ffd700 !important;
+    font-weight: 700;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+/* Seção de seleção de pontos */
+.selecao-pontos {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.selecao-pontos h3 {
+    color: #e0e6ff;
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    text-shadow: 
+        0 0 15px rgba(30, 144, 255, 0.7),
+        2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Container dos selects */
+.pontos-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.ponto-grupo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Labels dos selects */
+.ponto-grupo label {
+    color: #e0e6ff;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Display dos pontos selecionados */
+.ponto-display {
+    padding: 12px 20px;
+    border: 2px solid rgba(255, 215, 0, 0.4);
+    border-radius: 12px;
+    background: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    font-size: 1.1em;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    min-width: 120px;
+    text-align: center;
+}
+
+/* Selects customizados */
+.ponto-select {
+    padding: 12px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1.1em;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    min-width: 120px;
+}
+
+.ponto-select:focus {
+    outline: none;
+    border-color: rgba(138, 43, 226, 0.8);
+    box-shadow: 
+        0 0 20px rgba(138, 43, 226, 0.4),
+        0 0 40px rgba(30, 144, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.ponto-select:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Options dos selects */
+.ponto-select option {
+    background: rgba(75, 0, 130, 0.95);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 8px;
+}
+
+/* Botão de calcular */
+.btn-calcular {
+    padding: 18px 40px;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.9) 0%, 
+        rgba(75, 0, 130, 0.9) 50%, 
+        rgba(30, 144, 255, 0.9) 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.3),
+        2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+    box-shadow: 
+        0 15px 35px rgba(138, 43, 226, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+/* Efeito de brilho no botão */
+.btn-calcular::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-calcular:hover::before {
+    left: 100%;
+}
+
+/* Estados do botão */
+.btn-calcular:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 25px 50px rgba(138, 43, 226, 0.6),
+        0 0 30px rgba(30, 144, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, 
+        rgba(30, 144, 255, 0.9) 0%, 
+        rgba(138, 43, 226, 0.9) 50%, 
+        rgba(255, 215, 0, 0.8) 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-calcular:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 
+        0 15px 30px rgba(138, 43, 226, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Botão voltar */
+.btn-voltar {
+    display: inline-block;
+    padding: 14px 30px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.5px;
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.btn-voltar:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsividade simplificada */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container-matriz {
+        padding: 15px;
+        height: 98vh;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+    
+    .matriz-container {
+        max-height: 55vh;
+    }
+    
+    .matriz-table th,
+    .matriz-table td {
+        width: 35px;
+        height: 28px;
+        font-size: 0.7em;
+    }
+    
+    .calcular-btn {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-matriz {
+        padding: 10px;
+        height: 99vh;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+        letter-spacing: 1px;
+    }
+    
+    .matriz-container {
+        max-height: 50vh;
+    }
+    
+    .matriz-table th,
+    .matriz-table td {
+        width: 30px;
+        height: 24px;
+        font-size: 0.65em;
+    }
+    
+    .calcular-btn {
+        padding: 8px 20px;
+        font-size: 0.95em;
+    }
+    
+    .caminho-info p {
+        font-size: 0.85em;
+    }
+}
