@@ -9,36 +9,59 @@
     <title>Criar Matriz</title>
 </head>
 <body>
-    <h1>Criar Matriz</h1>
-    <p>De <strong>{{ ponto_partida }}</strong> para <strong>{{ ponto_destino }}</strong></p>
-    <p>Caso queria, edite os pesos das arestas na matriz abaixo:</p>
+    <div class="container-matriz">
+        <div class="header-info">
+            <h1>Criar Matriz</h1>
+            <div class="caminho-info">
+                <p>Calculando caminho de <span class="vertice">{{ ponto_partida }}</span> para <span class="vertice">{{ ponto_destino }}</span></p>
+                <p class="instrucao">Edite os pesos das arestas na matriz abaixo se desejar:</p>
+            </div>
+        </div>
     
-    <form action="{% url 'processar_grafo' %}" method="post">
-        {% csrf_token %}
+        <form action="{% url 'processar_grafo' %}" method="post">
+            {% csrf_token %}
 
-        <input type="hidden" name="numero_vertices" value="{{ numero_vertices }}">
-        <input type="hidden" name="ponto_partida" value="{{ ponto_partida }}">
-        <input type="hidden" name="ponto_destino" value="{{ ponto_destino }}">
-        
-        <table border="1" style="border-collapse: collapse;">
-            <tr>
-                <th></th>
-                {% for nome in vertices_nomes %}
-                    <th>{{ nome }}</th>
-                {% endfor %}
-            </tr>
-            {% for item in matriz_com_nomes %}
-                <tr>
-                    <th>{{ item.nome_linha }}</th>
-                    {% for pesos in item.linha %}
-                        <td><input type="number" name="celula_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" value="{{ pesos }}" style="width: 50px;"></td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </table>
-        <br>
-        <button type="submit">Calcular Menor Caminho</button>
-    </form>
+            <input type="hidden" name="numero_vertices" value="{{ numero_vertices }}">
+            <input type="hidden" name="ponto_partida" value="{{ ponto_partida }}">
+            <input type="hidden" name="ponto_destino" value="{{ ponto_destino }}">
+            
+            <div class="matriz-container">
+                <table class="matriz-table">
+                    <thead>
+                        <tr>
+                            <th class="header-empty"></th>
+                            {% for nome in vertices_nomes %}
+                                <th class="header-vertice">{{ nome }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in matriz_com_nomes %}
+                            <tr>
+                                <th class="row-vertice">{{ item.nome_linha }}</th>
+                                {% for pesos in item.linha %}
+                                    <td class="matriz-cell">
+                                        <input type="number" 
+                                               name="celula_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" 
+                                               value="{{ pesos }}" 
+                                               class="peso-input"
+                                               min="0">
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="button-container">
+                <button type="submit" class="calcular-btn">
+                    Calcular Menor Caminho
+                </button>
+            </div>
+        </form>
+    </div>
     <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="{% static 'js/matriz.js' %}"></script>
 </body>
 </html>

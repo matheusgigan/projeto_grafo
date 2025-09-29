@@ -14,7 +14,9 @@ def criar_grafo_aleatorio(numero_vertices):
             if i == j:
                 matriz[i][j] = 0
             else:
-                matriz[i][j] = random.randint(1, 10)
+                peso = random.randint(1, 10)
+                matriz[i][j] = peso
+                matriz[j][i] = peso 
 
     # Criando os vértices com letras do alfabeto
     vertice_alfabeto = list(string.ascii_uppercase[:numero_vertices])

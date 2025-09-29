@@ -2,6 +2,7 @@ from django.shortcuts import render
 from grafo.dijikastra import criar_grafo_aleatorio, dijikastra, caminho_ate_o_destino
 from grafo.forms import TestForm
 import string
+import json
 
 def index(request):
     form = TestForm()
@@ -56,8 +57,9 @@ def processar_grafo(request):
         else:
             return render(request, 'grafo/index.html', {'form': form})
     
-    form = TestForm()
-    return render(request, 'grafo/index.html', {'form': form})
+    # GET - redirecionar para index
+    from django.shortcuts import redirect
+    return redirect('index')
 
 def calcular_resultado(request):
     import json
