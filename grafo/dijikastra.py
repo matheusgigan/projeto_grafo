@@ -1,10 +1,8 @@
-from multiprocessing import context
 import random
 import string
-from django.shortcuts import render
+
 
 def criar_grafo_aleatorio(numero_vertices):
-
     matriz = [[0 for _ in range(numero_vertices)] for _ in range(numero_vertices)]  # Criando a matriz
     minhas_vertices = {}  
 
@@ -14,7 +12,7 @@ def criar_grafo_aleatorio(numero_vertices):
             if i == j:
                 matriz[i][j] = 0
             else:
-                peso = random.randint(1, 10)
+                peso = random.randint(1, 100)
                 matriz[i][j] = peso
                 matriz[j][i] = peso 
 
@@ -32,9 +30,9 @@ def criar_grafo_aleatorio(numero_vertices):
     return minhas_vertices
 
 def dijikastra(minhas_vertices, ponto_partida):
-
     minhas_vertices[ponto_partida]['distancia'] = 0
     nao_visitados = list(minhas_vertices.keys()) 
+
     while nao_visitados:
         vertice_atual = min(nao_visitados, key=lambda x: minhas_vertices[x]['distancia']) 
 

@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/resultado.css' %}">
-    
-    <!-- VIS.JS - CARREGAR ANTES -->
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-    
     <title>Resultado do Dijikastra</title>
 </head>
 <body>
@@ -43,16 +40,13 @@
         <a href="{% url 'index' %}" class="btn-voltar" title="Calcular novamente"></a>
     </div>
 
-    <!-- Dados para o JavaScript -->
     <script>
-        // Dados do Django
         window.verticesData = {{ vertices_data|safe }};
         window.caminhoData = {{ caminho_json|safe }};
         window.pontoPartida = "{{ ponto_partida }}";
         window.pontoDestino = "{{ ponto_destino }}";
         window.distanciaTotal = {{ distancia|default:0 }};
         
-        // Inicializar quando a página carregar
         document.addEventListener('DOMContentLoaded', function() {
             console.log('=== DADOS CARREGADOS ===');
             console.log('Vértices:', window.verticesData);
@@ -60,9 +54,7 @@
             console.log('Origem:', window.pontoPartida);
             console.log('Destino:', window.pontoDestino);
             
-            // Verificar se temos dados
             if (window.verticesData) {
-                // Criar o grafo com os novos parâmetros
                 criarGrafoSimples(window.verticesData, window.caminhoData, window.pontoPartida, window.pontoDestino);
             } else {
                 console.error('Dados não encontrados!');
