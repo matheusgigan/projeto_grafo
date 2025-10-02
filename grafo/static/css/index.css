@@ -104,7 +104,8 @@ label {
 
 /* Inputs do formulário */
 input[type="number"],
-input[type="text"] {
+input[type="text"],
+select {
     padding: 16px 20px;
     font-size: 1.1em;
     border: 2px solid rgba(255, 255, 255, 0.2);
@@ -116,14 +117,42 @@ input[type="text"] {
     font-weight: 500;
 }
 
+/* Estilização específica para selects */
+select {
+    cursor: pointer;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="rgba(255,255,255,0.8)" d="m0,1 2,2 2,-2z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+    padding-right: 45px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Options do select */
+select option {
+    background: rgba(75, 0, 130, 0.95);
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    font-weight: 500;
+}
+
+select option:hover,
+select option:focus {
+    background: rgba(138, 43, 226, 0.95);
+}
+
 /* Placeholder styling */
 input::placeholder {
     color: rgba(255, 255, 255, 0.6);
     font-style: italic;
 }
 
-/* Estados dos inputs */
-input:focus {
+/* Estados dos inputs e selects */
+input:focus,
+select:focus {
     outline: none;
     border-color: rgba(138, 43, 226, 0.8);
     box-shadow: 
@@ -133,7 +162,8 @@ input:focus {
     transform: translateY(-2px);
 }
 
-input:hover {
+input:hover,
+select:hover {
     border-color: rgba(255, 255, 255, 0.4);
     background: rgba(255, 255, 255, 0.12);
 }
@@ -199,11 +229,13 @@ button[type="submit"]:hover::before {
 }
 
 /* Efeitos de validação */
-input:valid {
+input:valid,
+select:valid {
     border-color: rgba(76, 175, 80, 0.6);
 }
 
-input:invalid:not(:placeholder-shown) {
+input:invalid:not(:placeholder-shown),
+select:invalid {
     border-color: rgba(244, 67, 54, 0.6);
     box-shadow: 0 0 10px rgba(244, 67, 54, 0.3);
 }
@@ -221,9 +253,15 @@ input:invalid:not(:placeholder-shown) {
     }
     
     input[type="number"],
-    input[type="text"] {
+    input[type="text"],
+    select {
         padding: 14px 16px;
         font-size: 1em;
+    }
+    
+    select {
+        padding-right: 40px;
+        background-size: 10px;
     }
     
     button[type="submit"] {
@@ -246,9 +284,15 @@ input:invalid:not(:placeholder-shown) {
     }
     
     input[type="number"],
-    input[type="text"] {
+    input[type="text"],
+    select {
         padding: 12px 14px;
         font-size: 0.95em;
+    }
+    
+    select {
+        padding-right: 35px;
+        background-size: 8px;
     }
     
     button[type="submit"] {
@@ -264,6 +308,10 @@ label {
 
 input {
     animation: fadeInRight 0.6s ease-out 0.4s both;
+}
+
+select {
+    animation: fadeInRight 0.6s ease-out 0.5s both;
 }
 
 button {
